@@ -6,7 +6,7 @@
 
 - [x] React Native CLI, TypeScript로 환경구성 (Android, ios에서 구동가능해야 함)
 - [x] 함수형 컴포넌트로 구현할 것
-- [ ] 상태관리는 Zustand를 활용
+- [x] 상태관리는 Zustand를 활용
 
 ### 기능
 
@@ -102,3 +102,33 @@
 #### TypeScript 첨가 😌
 
 - [공식문서 - Using TypeScript](https://reactnative.dev/docs/typescript)
+
+<br>
+
+### Zustand로 상태관리하기
+
+[Zustand란?](<[https://ui.toast.com/weekly-pick/ko_20210812](https://ui.toast.com/weekly-pick/ko_20210812)>)
+[코드 참고](https://javascript.plainenglish.io/using-zustand-and-typescript-to-make-a-to-do-list-in-react-fe4a41e76748)
+
+- create함수를 이용해 상태, 그 상태를 변경하는 액션을 정의한다. 이 함수는 리액트 컴포넌트에서 사용할 수 있는 useStore 훅을 리턴한다. ❓
+- 발행/구독 모델을 기반으로 이루어져 있다. 상태 변경이 일어날 때 실행할 함수를 모아두었다가(구독), 상태가 변경되었을 때 이를 알려준다(발행)
+- 상태 변경을 구독할 리스너를 set으로 관리한다!
+
+#### 어떻게 썼나
+
+- 먼저 model/Todo.ts에 Todo Interface를 정의해둔다.
+- todoStore.tsx
+  - TodoState라는 Interface를 만든다. 이 곳에는 관리할 상태, 상태가 변하면 실행할 리스너의 형태를 정의하는 곳이다.
+  - create로 TodoState를 정의한다!!!!
+  - 근데 아직 set이 정확히 뭔지 잘 모르겠구만
+- 사용할 때는? todoStore에 정의한 useStore를 가져와서 사용한다!! 와우
+  - create가 반환하는 값의 형태.. 공부 더 필요 😌
+  ```ts
+  export declare type UseBoundStore<
+    T extends State,
+    CustomStoreApi extends StoreApi<T> = StoreApi<T>,
+  > = {
+    (): T;
+    <U>(selector: StateSelector<T, U>, equalityFn?: EqualityChecker<U>): U;
+  } & CustomStoreApi;
+  ```
