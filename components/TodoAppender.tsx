@@ -5,18 +5,22 @@ import styled from 'styled-components';
 const TodoAppender = ({addItem}) => {
   const [inputText, setInputText] = useState('');
 
-  const onChangeText = text => {
+  const onChangeText = (text: string): void => {
     setInputText(text);
   };
 
-  const onPressBtn = () => {
+  const onPressBtn = (): void => {
     setInputText(addItem(inputText));
   };
 
   return (
     <ComponentContainer>
       <View>
-        <Input placeholder="Add Task..." onChangeText={onChangeText} />
+        <Input
+          placeholder="Add Task..."
+          onChangeText={onChangeText}
+          value={inputText}
+        />
       </View>
       <SubmitButton onPress={onPressBtn}>
         <Text>추가</Text>

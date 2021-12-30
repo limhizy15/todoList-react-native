@@ -3,13 +3,17 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/Entypo';
 
-export default function TodoListItem({item, deleteItem}) {
+export default function TodoListItem({item, toggleComplete, deleteItem}) {
   return (
     <ComponentContainer>
       <ListContainer>
         <View>
           <CircleContainer>
-            <Icon name="circle" size={30} />
+            <Icon
+              name={item.isCompleted ? 'checkcircle' : 'circle'}
+              size={30}
+              onPress={() => toggleComplete(item.key)}
+            />
           </CircleContainer>
         </View>
         <View>

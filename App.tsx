@@ -1,13 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, SafeAreaView} from 'react-native';
+import {View, FlatList, SafeAreaView, Alert} from 'react-native';
 import styled from 'styled-components';
 import TodoAppender from './components/TodoAppender';
 import TodoListItem from './components/TodoListItem';
 import Header from './components/Header';
 
+type Props = {};
+
+interface IToDo {
+  key: string;
+  task: string;
+  createdTime: string;
+  isCompleted: boolean;
+}
+
 export default function App() {
-  const [data, setData] = useState([]);
-  const [currentTime, setCurrentTime] = useState('');
+  const [data, setData] = useState<IToDo[]>([]);
+  const [currentTime, setCurrentTime] = useState<string>('');
 
   useEffect(() => {
     let date = new Date().getDate();
@@ -21,8 +30,18 @@ export default function App() {
     );
   });
 
-  const addItem = task => {
-    if (task === '') {
+  const addItem = (task: string): void => {
+    console.log(typeof task);
+
+    if (task === '' || typeof task === undefined) {
+      // Alert.alert('Alert Title', 'My Alert Msg', [
+      //   {
+      //     text: 'Cancel',
+      //     onPress: () => console.log('Cancel Pressed'),
+      //     style: 'cancel',
+      //   },
+      //   {text: 'OK', onPress: () => console.log('OK Pressed')},
+      // ]);
       alert('할 일을 적어주세요.');
       return;
     }
@@ -40,22 +59,20 @@ export default function App() {
     });
   };
 
-  const editItem = (key, task) => {
-    setData(prevItem => {
-      return [
-        ...prevItem,
-        {
-          key,
-          task,
-        },
-      ];
-    });
-  };
-
-  const deleteItem = key => {
+  const deleteItem = (key: string): void => {
     setData(prevItem => {
       return prevItem.filter(todo => todo.key != key);
     });
+  };
+
+  const toggleComplete = (key: string): void => {
+    const newDatas = data.map(item => {
+      if (item.key === key) {
+        return {...item, isCompleted: !item.isCompleted};
+      }
+      return item;
+    });
+    setData(newDatas);
   };
 
   return (
@@ -67,7 +84,7 @@ export default function App() {
           renderItem={({item}) => (
             <TodoListItem
               item={item}
-              editItem={editItem}
+              toggleComplete={toggleComplete}
               deleteItem={deleteItem}
             />
           )}
