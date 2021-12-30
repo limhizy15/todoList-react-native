@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {View, TextInput, Button, StyleSheet} from 'react-native';
+import {View, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/Entypo';
 
 type Props = {
   addItem: (task: string, currentTime: string) => void;
@@ -40,7 +41,9 @@ export default function TodoAppender({addItem}: Props) {
           value={inputText}
         />
       </View>
-      <Button title="추가" onPress={onPressBtn} />
+      <TouchableOpacity>
+        <Icon name="circle-with-plus" size={35} onPress={onPressBtn} />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -53,10 +56,11 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 20,
     backgroundColor: 'white',
-    borderRadius: 10,
     width: 290,
     padding: 10,
-    marginBottom: 30,
+    marginBottom: 40,
     marginRight: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: 'black',
   },
 });

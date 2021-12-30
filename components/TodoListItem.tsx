@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Button, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 
 interface IToDo {
@@ -38,8 +38,12 @@ export default function TodoListItem({
           </Text>
           <Text style={styles.date}>{item.createdTime}</Text>
         </View>
-        <Button title="수정" onPress={() => deleteItem(item.key)} />
-        <Button title="삭제" onPress={() => deleteItem(item.key)} />
+        <TouchableOpacity style={styles.iconContainer}>
+          <Icon name="edit" size={20} onPress={() => deleteItem(item.key)} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.iconContainer}>
+          <Icon name="trash" size={20} onPress={() => deleteItem(item.key)} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -61,9 +65,10 @@ const styles = StyleSheet.create({
   listContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'whitesmoke',
+    backgroundColor: 'white',
     marginBottom: 15,
     borderRadius: 10,
+    borderWidth: 2,
   },
   circleContainer: {
     justifyContent: 'center',
@@ -80,7 +85,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   date: {
-    color: '#5e81ac',
+    color: 'midnightblue',
     fontSize: 15,
     marginTop: 10,
     marginBottom: 10,
@@ -91,5 +96,9 @@ const styles = StyleSheet.create({
   lineThrough: {
     color: '#9e9e9e',
     textDecorationLine: 'line-through',
+  },
+  iconContainer: {
+    marginTop: 10,
+    marginRight: 10,
   },
 });
