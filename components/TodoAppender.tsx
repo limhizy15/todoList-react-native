@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
-import {View, TextInput, Text, TouchableOpacity} from 'react-native';
-import styled from 'styled-components';
+import {View, TextInput, Button, StyleSheet} from 'react-native';
 
-const TodoAppender = ({addItem}) => {
+type Props = {
+  addItem: (task: string) => void;
+};
+
+const TodoAppender = ({addItem}: Props) => {
   const [inputText, setInputText] = useState('');
 
   const onChangeText = (text: string): void => {
@@ -10,49 +13,38 @@ const TodoAppender = ({addItem}) => {
   };
 
   const onPressBtn = (): void => {
-    setInputText(addItem(inputText));
+    addItem(inputText);
   };
 
   return (
-    <ComponentContainer>
+    <View style={styles.container}>
       <View>
-        <Input
+        <TextInput
+          style={styles.input}
           placeholder="Add Task..."
           onChangeText={onChangeText}
           value={inputText}
         />
       </View>
-      <SubmitButton onPress={onPressBtn}>
-        <Text>추가</Text>
-      </SubmitButton>
-    </ComponentContainer>
+      <Button title="추가" onPress={onPressBtn} />
+    </View>
   );
 };
 
-const ComponentContainer = styled.View`
-  flex-direction: row;
-  justify-content: center;
-`;
-
-const Input = styled.TextInput`
-  width: 290px;
-  padding: 10px;
-  margin-right: 20px;
-  margin-bottom: 20px;
-
-  font-size: 20px;
-  background-color: white;
-  border-radius: 10px;
-`;
-
-const SubmitButton = styled.TouchableOpacity`
-  justify-content: center;
-  align-items: center;
-  background-color: #eceff4;
-  width: 50px;
-  margin-bottom: 20px;
-  padding: 10px;
-  border-radius: 10px;
-`;
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  input: {
+    fontSize: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    width: 290,
+    padding: 10,
+    marginBottom: 30,
+    marginRight: 20,
+  },
+});
 
 export default TodoAppender;

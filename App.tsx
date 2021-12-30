@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, SafeAreaView, Alert} from 'react-native';
-import styled from 'styled-components';
+import {View, FlatList, Alert, StyleSheet} from 'react-native';
 import TodoAppender from './components/TodoAppender';
 import TodoListItem from './components/TodoListItem';
 import Header from './components/Header';
-
-type Props = {};
 
 interface IToDo {
   key: string;
@@ -31,18 +28,8 @@ export default function App() {
   });
 
   const addItem = (task: string): void => {
-    console.log(typeof task);
-
     if (task === '' || typeof task === undefined) {
-      // Alert.alert('Alert Title', 'My Alert Msg', [
-      //   {
-      //     text: 'Cancel',
-      //     onPress: () => console.log('Cancel Pressed'),
-      //     style: 'cancel',
-      //   },
-      //   {text: 'OK', onPress: () => console.log('OK Pressed')},
-      // ]);
-      alert('할 일을 적어주세요.');
+      Alert.alert('Simple Button pressed');
       return;
     }
 
@@ -76,7 +63,7 @@ export default function App() {
   };
 
   return (
-    <ComponentContainer>
+    <View style={styles.container}>
       <View>
         <FlatList
           data={data}
@@ -94,14 +81,14 @@ export default function App() {
           <TodoAppender addItem={addItem} />
         </View>
       </View>
-    </ComponentContainer>
+    </View>
   );
 }
 
-const ComponentContainer = styled.SafeAreaView`
-  background-color: #5e81ac;
-  height: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

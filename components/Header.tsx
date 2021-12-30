@@ -1,23 +1,22 @@
 import React from 'react';
-import styled from 'styled-components';
+import {StyleSheet, Text, View} from 'react-native';
 
 export default function Header() {
   return (
-    <ComponentContainer>
-      <HeaderText>TODO List</HeaderText>
-    </ComponentContainer>
+    <View style={styles.container}>
+      <Text style={styles.text}>TODO List</Text>
+    </View>
   );
 }
 
-const ComponentContainer = styled.View`
-  height: 150px;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-
-const HeaderText = styled.Text`
-  color: white;
-  font-size: 30px;
-  font-weight: 500;
-`;
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    color: 'black',
+    fontSize: 30,
+    fontWeight: '500',
+  },
+});

@@ -1,73 +1,85 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import styled from 'styled-components';
+import {View, Text, TouchableOpacity, Button, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 
-export default function TodoListItem({item, toggleComplete, deleteItem}) {
+interface IToDo {
+  key: string;
+  task: string;
+  createdTime: string;
+  isCompleted: boolean;
+}
+
+type Props = {
+  item: IToDo;
+  toggleComplete: (key: string) => void;
+  deleteItem: (task: string) => void;
+};
+
+export default function TodoListItem({
+  item,
+  toggleComplete,
+  deleteItem,
+}: Props) {
   return (
-    <ComponentContainer>
-      <ListContainer>
+    <View style={styles.container}>
+      <View style={styles.listContainer}>
         <View>
-          <CircleContainer>
+          <TouchableOpacity style={styles.circleContainer}>
             <Icon
-              name={item.isCompleted ? 'checkcircle' : 'circle'}
+              name={item.isCompleted ? 'chevron-with-circle-down' : 'circle'}
               size={30}
               onPress={() => toggleComplete(item.key)}
             />
-          </CircleContainer>
+          </TouchableOpacity>
         </View>
         <View>
-          <TaskText>{item.task}</TaskText>
-          <DateText>{item.createdTime}</DateText>
+          <Text style={styles.task}>{item.task}</Text>
+          <Text style={styles.date}>{item.createdTime}</Text>
         </View>
-        <BtnContainer onPress={() => deleteItem(item.key)}>
-          <Text>수정</Text>
-        </BtnContainer>
-        <BtnContainer onPress={() => deleteItem(item.key)}>
-          <Text>삭제</Text>
-        </BtnContainer>
-      </ListContainer>
-    </ComponentContainer>
+        <Button title="수정" onPress={() => deleteItem(item.key)} />
+        <Button title="삭제" onPress={() => deleteItem(item.key)} />
+      </View>
+    </View>
   );
 }
 
-const ComponentContainer = styled.View`
-  justify-content: center;
-`;
-
-const ListContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: whitesmoke;
-  margin-bottom: 15px;
-  border-radius: 10px;
-`;
-
-const CircleContainer = styled.TouchableOpacity`
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-`;
-
-const TaskText = styled.Text`
-  color: black;
-  width: 210px;
-  font-size: 20px;
-  font-weight: 500;
-  margin: 0px 20px;
-  margin-top: 10px;
-`;
-
-const DateText = styled.Text`
-  color: #5e81ac;
-  font-size: 15px;
-  margin: 10px 20px;
-  width: 100px;
-`;
-
-const BtnContainer = styled.TouchableOpacity`
-  justify-content: flex-end;
-  margin-right: 10px;
-  margin-top: 15px;
-  height: 40px;
-`;
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+  },
+  input: {
+    fontSize: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    width: 290,
+    padding: 10,
+    marginBottom: 30,
+    marginRight: 20,
+  },
+  listContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'whitesmoke',
+    marginBottom: 15,
+    borderRadius: 10,
+  },
+  circleContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+  },
+  task: {
+    color: 'black',
+    width: 170,
+    fontSize: 20,
+    fontWeight: '500',
+    margin: '0px 20px',
+    marginTop: 10,
+  },
+  date: {
+    color: '#5e81ac',
+    fontSize: 15,
+    margin: '10px 20px',
+    width: 100,
+  },
+});
