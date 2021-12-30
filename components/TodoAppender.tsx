@@ -5,7 +5,7 @@ type Props = {
   addItem: (task: string) => void;
 };
 
-const TodoAppender = ({addItem}: Props) => {
+export default function TodoAppender({addItem}: Props) {
   const [inputText, setInputText] = useState('');
 
   const onChangeText = (text: string): void => {
@@ -30,7 +30,7 @@ const TodoAppender = ({addItem}: Props) => {
       <Button title="추가" onPress={onPressBtn} />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -47,5 +47,3 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
 });
-
-export default TodoAppender;

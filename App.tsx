@@ -3,6 +3,7 @@ import {View, FlatList, Alert, StyleSheet} from 'react-native';
 import TodoAppender from './components/TodoAppender';
 import TodoListItem from './components/TodoListItem';
 import Header from './components/Header';
+import Empty from './components/Empty';
 
 interface IToDo {
   key: string;
@@ -68,6 +69,7 @@ export default function App() {
         <FlatList
           data={data}
           ListHeaderComponent={() => <Header />}
+          ListEmptyComponent={() => <Empty />}
           renderItem={({item}) => (
             <TodoListItem
               item={item}
