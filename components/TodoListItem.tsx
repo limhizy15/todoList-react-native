@@ -33,7 +33,9 @@ export default function TodoListItem({
           </TouchableOpacity>
         </View>
         <View>
-          <Text style={styles.task}>{item.task}</Text>
+          <Text style={[styles.task, item.isCompleted && styles.lineThrough]}>
+            {item.task}
+          </Text>
           <Text style={styles.date}>{item.createdTime}</Text>
         </View>
         <Button title="수정" onPress={() => deleteItem(item.key)} />
@@ -73,13 +75,21 @@ const styles = StyleSheet.create({
     width: 170,
     fontSize: 20,
     fontWeight: '500',
-    margin: '0px 20px',
     marginTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
   },
   date: {
     color: '#5e81ac',
     fontSize: 15,
-    margin: '10px 20px',
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
     width: 100,
+  },
+  lineThrough: {
+    color: '#9e9e9e',
+    textDecorationLine: 'line-through',
   },
 });

@@ -29,7 +29,7 @@ export default function App() {
 
   const addItem = (task: string): void => {
     if (task === '' || typeof task === undefined) {
-      Alert.alert('Simple Button pressed');
+      Alert.alert('할 일을 입력해주세요.');
       return;
     }
 

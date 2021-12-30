@@ -14,6 +14,7 @@ const TodoAppender = ({addItem}: Props) => {
 
   const onPressBtn = (): void => {
     addItem(inputText);
+    setInputText('');
   };
 
   return (
