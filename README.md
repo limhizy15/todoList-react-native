@@ -10,11 +10,11 @@
 
 ### 기능
 
-- [ ] 할 일 입력/수정/삭제 기능
+- [x] 할 일 입력/수정/삭제 기능
   - [x] 할 일을 새롭게 추가할 수 있다.
   - [x] 할 일을 삭제할 수 있다.
   - [x] 할 일을 완료할 수 있다.
-  - [ ] 할 일을 수정할 수 있다.
+  - [x] 할 일을 수정할 수 있다.
 - [x] 할 일은 Task, CreateTime을 포함
 - [x] FlatList를 활용해 List를 표현
 
@@ -122,7 +122,9 @@
   - create로 TodoState를 정의한다!!!!
   - 근데 아직 set이 정확히 뭔지 잘 모르겠구만
 - 사용할 때는? todoStore에 정의한 useStore를 가져와서 사용한다!! 와우
+
   - create가 반환하는 값의 형태.. 공부 더 필요 😌
+
   ```ts
   export declare type UseBoundStore<
     T extends State,
@@ -132,3 +134,12 @@
     <U>(selector: StateSelector<T, U>, equalityFn?: EqualityChecker<U>): U;
   } & CustomStoreApi;
   ```
+
+  <br>
+
+### 수정기능이 어렵습니다.
+
+- 일단 수정버튼을 누르면 Text가 inputText가 되도록 해보자
+  - editMode라는 상태를 둬서 수정모드에 진입하면 task text가 input으로 바뀌게 했음. 그리고 연필 아이콘도 체크 아이콘으로 보이게 함. 체크 아이콘을 누르면 수정이 완료되도록.
+  - 그럼 일단 에딧모드에 진입했을 때 이 input의 text를 팔로우 해야함 / 그리고 체크를 누르면 text를 state에 새롭게 반영하는 로직을 작성해야 함
+  - onChangeText로 수정할 내용을 바라보고 있고 submit을 하면 editItem이 호출되서 상태를 변경하도록 했음

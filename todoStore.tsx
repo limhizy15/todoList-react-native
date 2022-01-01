@@ -7,6 +7,7 @@ interface TodoState {
   addItem: (task: string, currentTime: string) => void;
   deleteItem: (key: string) => void;
   toggleCompletedState: (key: string) => void;
+  editItem: (key: string, inputText: string) => void;
 }
 
 export const useStore = create<TodoState>(set => ({
@@ -39,6 +40,13 @@ export const useStore = create<TodoState>(set => ({
         todo.key === key
           ? ({...todo, isCompleted: !todo.isCompleted} as Todo)
           : todo,
+      ),
+    }));
+  },
+  editItem: (key: string, inputText: string) => {
+    set(state => ({
+      todos: state.todos.map(todo =>
+        todo.key === key ? ({...todo, task: inputText} as Todo) : todo,
       ),
     }));
   },

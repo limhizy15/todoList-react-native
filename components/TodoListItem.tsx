@@ -1,25 +1,43 @@
-import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
-
-interface IToDo {
-  key: string;
-  task: string;
-  createdTime: string;
-  isCompleted: boolean;
-}
+import {Todo} from '../model/Todo';
 
 type Props = {
-  item: IToDo;
+  item: Todo;
   toggleComplete: (key: string) => void;
   deleteItem: (task: string) => void;
+  editItem: (key: string, inputText: string) => void;
 };
 
 export default function TodoListItem({
   item,
   toggleComplete,
   deleteItem,
+  editItem,
 }: Props) {
+  const [editMode, setEditMode] = useState(false);
+  const [inputText, setInputText] = useState('');
+
+  const clickEditBtn = () => {
+    setEditMode(true);
+  };
+
+  const submitEditBtn = () => {
+    editItem(item.key, inputText);
+    setEditMode(false);
+  };
+
+  const onChangeText = (text: string): void => {
+    setInputText(text);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.listContainer}>
@@ -33,14 +51,29 @@ export default function TodoListItem({
           </TouchableOpacity>
         </View>
         <View>
-          <Text style={[styles.task, item.isCompleted && styles.lineThrough]}>
-            {item.task}
-          </Text>
+          {editMode ? (
+            <TextInput
+              placeholder="수정할 내용"
+              style={styles.task}
+              onChangeText={onChangeText}
+              value={inputText}></TextInput>
+          ) : (
+            <Text style={[styles.task, item.isCompleted && styles.lineThrough]}>
+              {item.task}
+            </Text>
+          )}
           <Text style={styles.date}>{item.createdTime}</Text>
         </View>
-        <TouchableOpacity style={styles.iconContainer}>
-          <Icon name="edit" size={20} onPress={() => deleteItem(item.key)} />
-        </TouchableOpacity>
+        {editMode ? (
+          <TouchableOpacity style={styles.iconContainer}>
+            <Icon name="check" size={20} onPress={() => submitEditBtn()} />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.iconContainer}>
+            <Icon name="edit" size={20} onPress={() => clickEditBtn()} />
+          </TouchableOpacity>
+        )}
+
         <TouchableOpacity style={styles.iconContainer}>
           <Icon name="trash" size={20} onPress={() => deleteItem(item.key)} />
         </TouchableOpacity>

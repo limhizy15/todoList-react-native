@@ -7,15 +7,9 @@ import Empty from './components/Empty';
 
 import {useStore} from './todoStore';
 
-interface IToDo {
-  key: string;
-  task: string;
-  createdTime: string;
-  isCompleted: boolean;
-}
-
 export default function App() {
-  const {addItem, deleteItem, toggleCompletedState, todos} = useStore();
+  const {addItem, deleteItem, toggleCompletedState, editItem, todos} =
+    useStore();
 
   return (
     <View style={styles.container}>
@@ -29,6 +23,7 @@ export default function App() {
               item={item}
               toggleComplete={toggleCompletedState}
               deleteItem={deleteItem}
+              editItem={editItem}
             />
           )}
           keyExtractor={item => item.key}
