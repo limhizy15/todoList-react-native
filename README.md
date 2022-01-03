@@ -20,11 +20,44 @@
 
 <br />
 
+## 🔖 구현내용
+
+### 디렉토리 구조
+
+```
+components
+ㄴ Empty.tsx // 투두리스트가 비었을 때 출력되는 컴포넌트
+ㄴ Header.tsx // FlatList의 헤더
+ㄴ TodoAppender.tsx // 아이템 추가를 위한 컴포넌트
+ㄴ TodoListItem.tsx // FlatList에서 출력할 아이템
+
+model
+ㄴ Todo.ts // 투두 아이템 모델
+
+App.tsx
+
+todoStore.tsx // 투두 상태관리 하는 곳
+
+```
+
+### 기능
+
+- 아이템이 하나도 없으면 빈 화면을 보여준다.
+- 아래에 input에 할 일을 입력하면 생성된 날짜와 함께 투두 아이템이 출력된다.
+- 왼쪽 동그라미를 눌러 할 일을 완료하거나 취소할 수 있다.
+- 연필을 누르면 할 일을 수정할 수 있다.
+- 휴지통을 누르면 할 일을 삭제할 수 있다.
+
+### 결과사진
+
+![결과사진](./result.gif)
+
 ## 🏁 학습내용
 
 ### React Native + TypeScript 환경구성
 
 [React Native Typescript 설정하는 방법](https://ithub.tistory.com/234)
+
 [React Native 설치와 실행](https://yuddomack.tistory.com/entry/1React-Native-%EC%84%A4%EC%B9%98%EC%99%80-%EC%8B%A4%ED%96%89hello-world)
 
 #### 설치한 것들
@@ -108,6 +141,7 @@
 ### Zustand로 상태관리하기
 
 [Zustand란?](<[https://ui.toast.com/weekly-pick/ko_20210812](https://ui.toast.com/weekly-pick/ko_20210812)>)
+
 [코드 참고](https://javascript.plainenglish.io/using-zustand-and-typescript-to-make-a-to-do-list-in-react-fe4a41e76748)
 
 - create함수를 이용해 상태, 그 상태를 변경하는 액션을 정의한다. 이 함수는 리액트 컴포넌트에서 사용할 수 있는 useStore 훅을 리턴한다. ❓
